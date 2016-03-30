@@ -1,5 +1,65 @@
+@import 'bower_components/pasteup-palette/src/_palette';
+@import "bower_components/guss-colours/_colours.scss";
+
+
+@include guss-generate-colour-classes($palette: $pasteup-palette, $property: background-color, $prefix: b-);
+
+$neutral-1: map-get($pasteup-palette, 'neutral-1');
+$neutral-2: map-get($pasteup-palette, 'neutral-2');
+$neutral-3: map-get($pasteup-palette, 'neutral-3');
+$neutral-4: map-get($pasteup-palette, 'neutral-4');
+$neutral-5: map-get($pasteup-palette, 'neutral-5');
+$neutral-6: map-get($pasteup-palette, 'neutral-6');
+$neutral-7: map-get($pasteup-palette, 'neutral-7');
+$neutral-8: map-get($pasteup-palette, 'neutral-8');
+$news-main-1: map-get($pasteup-palette, 'news-main-1');
+$news-main-2: map-get($pasteup-palette, 'news-main-2');
+$guardian-brand: map-get($pasteup-palette, 'guardian-brand');
+$guardian-brand-light: map-get($pasteup-palette, 'guardian-brand-light');
+$guardian-brand-dark: map-get($pasteup-palette, 'guardian-brand-dark');
+
+$c-left: #B64233; //#D61D00 desaturate($c-right, 10%)
+$c-right: #507892;//#bdbdbd
+$c-coalition:#767676;
+$c-totalitarian:#767676;
+
+$c-background: #CCC;
+$c-accent: rgb(75, 198, 223); //rgb(255, 155, 11)
+$c-text: #FFF;
+$c-neutral-one: #f6f6f6;
+$c-neutral-light: #f6f6f6;
+$c-neutral-mid: #767676;
+$c-neutral-black: #333;
+
+
 @import "fonts";
 @import "palette";
 @import "mq";
+@import "layout";
+
+
 @import "general";
+
+
 @import "share";
+// @import "mapStyles";
+// @import "d3Slider";
+// @import "tooltip";
+@import "area-chart-view";
+@import "season-chart";
+
+
+.clearfix:before,
+.clearfix:after {
+    content: ".";    
+    display: block;    
+    height: 0;    
+    overflow: hidden; 
+}
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; } /* IE < 8 */
+
+button:focus {outline:0 !important;}
+a {
+    text-shadow: none !important; // Override apps
+}
