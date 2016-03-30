@@ -1,0 +1,22 @@
+{
+  "name": "wenger-matches",
+  "version": "0.0.0",
+  "homepage": "https://github.com/guardian/wenger-matches",
+  "authors": [
+    "Matt Osborn <matthew.osborn@theguardian.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "guss-typography": "~3.1.1",
+    "sass-mq": "~3.1.2",
+    "pasteup-palette": "~3.4.2"
+  }
+}
