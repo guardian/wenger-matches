@@ -24,7 +24,7 @@ import seasonHTML from './templates/season.html!text'
 				    width = 300 - margin.left - margin.right,
 				    height = 140 - margin.top - margin.bottom;
 
-				var widthUnit = (Math.floor(width/options.maxValMatches));
+				var widthUnit = width/options.maxValMatches;//(Math.floor(width/options.maxValMatches))
 
 				width = options.maxValMatches * widthUnit;
 
@@ -52,15 +52,15 @@ import seasonHTML from './templates/season.html!text'
 				    .orient("left")
 				    .tickSize(width);
 
-				var areaTop = d3.svg.area().interpolate("step-after")
+				var areaTop = d3.svg.area().interpolate("step")
 				    .x(function(d,i) { return x(i); })
 				    .y0(height/2)
 				    .y1(function(d) { return y(d.For); });
 
-				var areaBottom = d3.svg.area().interpolate("step-after")
+				var areaBottom = d3.svg.area().interpolate("step")
 				    .x(function(d,i) { return x(i); })
 				    .y0(height/2)
-				    .y1(function(d) { return y(d.Against * -1); });   
+				    .y1(function(d) { return y(d.Against * -1); });    
 
 				var svg = d3.select("#"+options.seasonContainer+" .matches").append("svg")
 				    .attr("width", width + margin.left + margin.right)
