@@ -44,9 +44,12 @@ function dataInit(resp){
         match.compDay = moment(match.DateFormat).format("DD");
         match.compMonth = moment(match.DateFormat).format("MM");
         match.compYear = moment(match.DateFormat).format("YYYY");
+        match.d3Date = moment(match.DateFormat).format("D-MMM-YYYY");
         match.season = getSeason(match.compYear, match.compMonth);
         match.For = parseInt(match.For);
         match.Against = parseInt(match.Against);
+
+
 
         // set global for graph axis
         if (maxValGoals < match.For){ maxValGoals = match.For };
@@ -84,7 +87,7 @@ function addSeasonCharts(allSeasons){
         options.maxValMatches = maxValMatches;
         options.arr = season;
 
-        new seasonChart(options)
+        new seasonChart(d3, options)
     })
 }
 
