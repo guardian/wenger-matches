@@ -9,6 +9,7 @@ import 'moment/locale/en-gb';
 
 import share from './lib/share';
 import seasonChart from './components/seasonChart.js'
+import Tooltip from './components/Tooltip'
 
 var _ = lodash;
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
@@ -49,8 +50,6 @@ function dataInit(resp){
         match.For = parseInt(match.For);
         match.Against = parseInt(match.Against);
 
-
-
         // set global for graph axis
         if (maxValGoals < match.For){ maxValGoals = match.For };
         if (maxValGoals < match.Against){ maxValGoals = match.Against };
@@ -65,8 +64,8 @@ function dataInit(resp){
     })
 
     addSeasonCharts(allSeasons);
-
 }    
+
 
 var getSeason = function(y,m){
     // check the month to add season var - season runs fron August to May
