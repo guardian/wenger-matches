@@ -1,4 +1,7 @@
 export default function Tooltip(options) {
+
+console.log(options)
+
   var w=options.width || 300,
     h=options.height || 180;
 
@@ -47,17 +50,17 @@ export default function Tooltip(options) {
 
   this.show=function(data,x,y,title) {
 
-    tooltipTitle.text(function(d) {return data.Country} )
+    tooltipTitle.text(function(d) {return data.Competition} )
 
     indicator.select("#govLeader")
       .attr("class","value-emphasis")
       .text(function(d){
         //console.log("AAAHHHHHHHHHH",d,this)
-        return (data.HeadofGovernment);
+        return ("ciao ciao ciao");
       })
 
     indicator.select("#govParty")
-      .text(function(d){ return data.partyOrCoalition;  })      
+      .text(function(d){ "ciao ciao ciao"  })      
 
     tooltip.style({
       left:(x + 20)+"px",  //+16+options.margins.left

@@ -66,7 +66,37 @@
     } 
 
 .svg-overlay {
-  fill: #333;
-  fill-opacity:0.25;
+  fill: none;
   pointer-events: all;
+  cursor:pointer;
 }  
+
+
+.focus circle {
+  fill:  #FFF;
+  stroke: #EFEFEF;
+}
+
+.focus line {
+  stroke-width: 1;
+  stroke: $c-accent;
+  shape-rendering: crispEdges;
+}
+
+.infobox{
+    
+}
+
+.focus rect{
+    fill: #FFF;
+    stroke:#EFEFEF;
+    stroke-width: 1px;
+    opacity: 0.9;
+}
+
+
+
+.focus text {
+  @include fs-data(1);
+    color:$neutral-2;
+}

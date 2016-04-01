@@ -17,6 +17,9 @@ var allMatches;
 var allSeasons;
 var maxValGoals, maxValMatches;
 
+var margin = {top: 2, right: 20, bottom: 20, left: 0};
+                    
+
 export function init(el, context, config, mediator) {
     iframeMessenger.enableAutoResize();
     el.innerHTML = mainHTML.replace(/%assetPath%/g, config.assetPath);
@@ -78,6 +81,19 @@ var getSeason = function(y,m){
 
 function addSeasonCharts(allSeasons){
 
+    var tooltipPartnership = new Tooltip({ container: ".interactive-container", margins:margin, title: false, indicators:[
+                            {
+                              title:"Leader",
+                              id:"govLeader"
+                              
+                            },
+                            {
+                              title:"Party",
+                              id:"govParty"
+                              
+                            }
+                    ] })
+
     _.forEach(allSeasons, function(season,i){
         var options = {};
         options.container = ".interactive-container";
@@ -86,8 +102,10 @@ function addSeasonCharts(allSeasons){
         options.maxValMatches = maxValMatches;
         options.arr = season;
 
-        new seasonChart(d3, options)
+        new seasonChart(d3, options, tooltipPartnership, margin)
     })
+
+    
 }
 
 

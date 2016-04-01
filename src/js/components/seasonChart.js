@@ -8,25 +8,20 @@
 //var svg = d3.select("#"+options.seasonContainer+" .matches").append("svg")
 
 
-
 import seasonHTML from './templates/season.html!text'
 		
 	    // options.maxValGoals = maxValGoals;
      	// options.maxValMatches = maxValMatches;
 
-		export default function seasonChart(d3, options) {
-				//console.log(options)
-				// this.extents;
-				// this.startFrom=0;
-				// this.season={};
-				var data = options.arr;
-				var margin = {top: 2, right: 20, bottom: 20, left: 2},
-				    width = 300 - margin.left - margin.right,
-				    height = 140 - margin.top - margin.bottom;
+		export default function seasonChart(d3, options, tooltipPartnership, margin) {
+
+				var width = 300 - margin.left - margin.right, height = 140 - margin.top - margin.bottom;
+				
+				var data = options.arr;				
 
 				var widthUnit = width/options.maxValMatches;//(Math.floor(width/options.maxValMatches))
 
-				width = options.maxValMatches * widthUnit;
+				width = (options.maxValMatches * widthUnit);
 
 
 				var container=d3.select(options.container)
@@ -96,14 +91,21 @@ import seasonHTML from './templates/season.html!text'
 			              .attr("id", "svgOverlay")
 			              .attr("width", (data.length-1) * widthUnit)
 			              .attr("height", height)
-			              .on("mousemove", mousemove);	 
+			              .on("mousemove", mousemove)	
+			             .on("mouseleave",function(d){
+		              		tooltipPartnership.hide();
+		            	})   
 
 			        var focus = svg.append("g")
 			              .attr("class", "focus");
 			              
 			          focus.append("line")
-			              .attr("x1", height)
-			              .attr("x2", 0);//(width-margin.left-margin.right)/2       
+			              .attr("y1", height)
+			              .attr("y2", 0)
+			              //.style("stroke-width", widthUnit);
+
+			    	
+
 
 				  // svg.append("g")
 					 //    .attr("class", "x axis")
@@ -115,27 +117,52 @@ import seasonHTML from './templates/season.html!text'
 					// gy.selectAll("text")
 					//     .attr("x", 4)
 					//     .attr("dy", -4);
+
+
+				// Against
+				// Competition
+				// Date:"09/12/1999"
+				// DateFormatThu Dec 09 1999 00:00:00 GMT+0000 (GMT)
+				// For
+				// Notes
+				// Opponent
+				// Position at the end of the day
+				// Red Cards
+				// Result : WLD
+				// Where: H  "A"
+				// compDate : "19991209"
+				// compDay
+				// compMonth
+				// compYear
+				// d3Date : "9-Dec-1999"
+				// season : "1999_2000"
+				// trophy	
 			
 		 		function mousemove() {  
 			          stopPropagation();
+			          var el = options.seasonContainer;
+					  var xPos = d3.mouse(this)[0];
 
-			          var d = Math.round(x.invert(d3.mouse(this)[0]));
+					  var yPos = document.getElementById(el).offsetTop;
 
-			          console.log(d, data[d])
-
+			          var d = Math.round(x.invert(xPos));
 			          var obj = data[d];
+					  //console.log(this.y, xPos, d, obj);
 
-			          focus.select("g").attr("transform", "translate( "+d+" , 0 )");
+			          focus.select("g").attr("transform", "translate( "+ d +" , 0 )");
 			          focus.select("circle").attr("transform", "translate( "+ (width-margin.left-margin.right)/2 +" , "+ d3.mouse(this)[1] +" )");
-			        
-			          focus.select("line").attr("transform", "translate( 0 , "+ (d3.mouse(this)[1])+" )");
+			          focus.select("line").attr("transform", "translate( "+ (d3.mouse(this)[0])+" 0 )");
 			        
 			          svg.selectAll(".x.axis path").style("fill-opacity", Math.random()); // XXX Chrome redraw bug
+
+			          tooltipPartnership.show(obj, xPos, yPos, obj.Competition);
 
 			          //upDateMapView(obj[2].compDate)
 			          //upDateTexts(obj[2])
 
 			        }
+
+			         
 
 			   //var offsets = data.map(function(t, i) { return [Date.UTC(t.date.getFullYear(), t.date.getMonth(), t.date.getDate()), t.lrCount, t]; });     
 
