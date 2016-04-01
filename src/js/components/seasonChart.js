@@ -9,13 +9,12 @@
 
 
 import seasonHTML from './templates/season.html!text'
-		
-	    // options.maxValGoals = maxValGoals;
-     	// options.maxValMatches = maxValMatches;
+import Tooltip from './Tooltip'
 
-		export default function seasonChart(d3, options, tooltipPartnership, margin) {
 
-				var width = 300 - margin.left - margin.right, height = 140 - margin.top - margin.bottom;
+		export default function seasonChart(d3, options, margin) {
+
+				var width = 300 - margin.left - margin.right, height;
 				
 				var data = options.arr;				
 
@@ -23,14 +22,15 @@ import seasonHTML from './templates/season.html!text'
 
 				width = (options.maxValMatches * widthUnit);
 
+				height = ((options.maxValGoals*2)*widthUnit)
 
 				var container=d3.select(options.container)
 					.append("div")
 					.attr("id", options.seasonContainer)
+					.attr("class", "season-container")
 					.html(seasonHTML);    
 
 				d3.select("#"+options.seasonContainer+" .info").html(data[0].season.split("_").join("-")); // set the season as title	
-
 
 				var x = d3.scale.linear()
 				    .range([0, width]);
@@ -66,7 +66,6 @@ import seasonHTML from './templates/season.html!text'
 				  x.domain([0 , options.maxValMatches]); 
 				  y.domain([options.maxValGoals *-1, options.maxValGoals ]);
 
-				  // console.log(x(d.d3Date))
  					var gy = svg.append("g")
 				  		.attr("y", 2)
 					    .attr("class", "y axis")
@@ -92,82 +91,77 @@ import seasonHTML from './templates/season.html!text'
 			              .attr("width", (data.length-1) * widthUnit)
 			              .attr("height", height)
 			              .on("mousemove", mousemove)	
-			             .on("mouseleave",function(d){
-		              		tooltipPartnership.hide();
-		            	})   
+			         .on("mouseleave", mouseleave)   
 
 			        var focus = svg.append("g")
 			              .attr("class", "focus");
 			              
-			          focus.append("line")
-			              .attr("y1", height)
-			              .attr("y2", 0)
-			              //.style("stroke-width", widthUnit);
+			          // focus.append("line")
+			          //     .attr("y1", height)
+			          //     .attr("y2", height-10)
+			          //     .attr("class","focus-line");
 
-			    	
+			          focus.append("circle")
+			           		.attr("r", 3)
+	          				.attr("transform", "translate( 0 , 0 )");	   
 
+				var el = document.getElementById(options.seasonContainer);
+				var focusEl = el.getElementsByClassName("focus")[0];
+			    var arseEl = el.getElementsByClassName("area-top")[0];
+			    var nonArseEl = el.getElementsByClassName("area-bottom")[0];
 
-				  // svg.append("g")
-					 //    .attr("class", "x axis")
-					 //    .attr("transform", "translate(0," + height/2 + ")")
-					 //    .call(xAxis);
-
-				  
-
-					// gy.selectAll("text")
-					//     .attr("x", 4)
-					//     .attr("dy", -4);
-
-
-				// Against
-				// Competition
-				// Date:"09/12/1999"
-				// DateFormatThu Dec 09 1999 00:00:00 GMT+0000 (GMT)
-				// For
-				// Notes
-				// Opponent
-				// Position at the end of the day
-				// Red Cards
-				// Result : WLD
-				// Where: H  "A"
-				// compDate : "19991209"
-				// compDay
-				// compMonth
-				// compYear
-				// d3Date : "9-Dec-1999"
-				// season : "1999_2000"
-				// trophy	
+				var tooltipPartnership = new Tooltip({ container: el, margins:margin, title: false, indicators:[
+                            {
+                              title:"Leader",
+                              id:"govLeader"
+                              
+                            },
+                            {
+                              title:"Party",
+                              id:"govParty"
+                              
+                            }
+                    ] })  
 			
 		 		function mousemove() {  
 			          stopPropagation();
-			          var el = options.seasonContainer;
+			          
 					  var xPos = d3.mouse(this)[0];
-
-					  var yPos = document.getElementById(el).offsetTop;
+					  var yPos = (height)*-1;
 
 			          var d = Math.round(x.invert(xPos));
 			          var obj = data[d];
 					  //console.log(this.y, xPos, d, obj);
 
 			          focus.select("g").attr("transform", "translate( "+ d +" , 0 )");
-			          focus.select("circle").attr("transform", "translate( "+ (width-margin.left-margin.right)/2 +" , "+ d3.mouse(this)[1] +" )");
-			          focus.select("line").attr("transform", "translate( "+ (d3.mouse(this)[0])+" 0 )");
+			          focus.select("circle").attr("transform", "translate( "+ xPos+" "+height/2+" )");
+			          //focus.select("line").attr("transform", "translate( "+ xPos+" 0 )");
+			          focus.style("display","block");
 			        
 			          svg.selectAll(".x.axis path").style("fill-opacity", Math.random()); // XXX Chrome redraw bug
 
-			          tooltipPartnership.show(obj, xPos, yPos, obj.Competition);
+			          tooltipPartnership.show(obj, xPos, yPos);
+					  nonArseEl.classList.add("non-arse-highlight");
+			          arseEl.classList.add("arse-highlight");
+			          
 
-			          //upDateMapView(obj[2].compDate)
-			          //upDateTexts(obj[2])
+			          console.log(arseEl)
 
 			        }
 
-			         
+			     function mouseleave(){
+		              		tooltipPartnership.hide();
+		              		focus.style("display","none");
+		              		arseEl.classList.remove("arse-highlight");
+			          		nonArseEl.classList.remove("non-arse-highlight");
+		            }    
 
 			   //var offsets = data.map(function(t, i) { return [Date.UTC(t.date.getFullYear(), t.date.getMonth(), t.date.getDate()), t.lrCount, t]; });     
 
 			   var stopPropagation = function() {
 			        d3.event.stopPropagation();
 			      }
+
+			    
 
 		}

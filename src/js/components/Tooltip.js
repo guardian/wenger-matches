@@ -1,6 +1,5 @@
 export default function Tooltip(options) {
 
-console.log(options)
 
   var w=options.width || 300,
     h=options.height || 180;
@@ -50,21 +49,25 @@ console.log(options)
 
   this.show=function(data,x,y,title) {
 
+    var htmlStr = "Arsenal "+data.For+" – "+data.Against+" "+data.Opponent;
+   
+    if (data.Where == "A"){ htmlStr = data.Opponent+" "+data.Against+" – "+data.For+" Arsenal"}
+
     tooltipTitle.text(function(d) {return data.Competition} )
 
     indicator.select("#govLeader")
       .attr("class","value-emphasis")
       .text(function(d){
         //console.log("AAAHHHHHHHHHH",d,this)
-        return ("ciao ciao ciao");
+        return (htmlStr);
       })
 
     indicator.select("#govParty")
       .text(function(d){ "ciao ciao ciao"  })      
 
     tooltip.style({
-      left:(x + 20)+"px",  //+16+options.margins.left
-      top:(y + (h/2) + 30)+"px" //+options.margins.top-60
+      left:(x + 30)+"px",  //+16+options.margins.left
+      top:(y + (h/2) + 24)+"px" //+options.margins.top-60
     })
     .classed("visible",true)
 

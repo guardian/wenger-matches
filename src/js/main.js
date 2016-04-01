@@ -81,28 +81,15 @@ var getSeason = function(y,m){
 
 function addSeasonCharts(allSeasons){
 
-    var tooltipPartnership = new Tooltip({ container: ".interactive-container", margins:margin, title: false, indicators:[
-                            {
-                              title:"Leader",
-                              id:"govLeader"
-                              
-                            },
-                            {
-                              title:"Party",
-                              id:"govParty"
-                              
-                            }
-                    ] })
-
     _.forEach(allSeasons, function(season,i){
         var options = {};
-        options.container = ".interactive-container";
+        options.container = ".seasons-container";
         options.seasonContainer = "seasonDiv_"+i;
         options.maxValGoals = maxValGoals;
         options.maxValMatches = maxValMatches;
         options.arr = season;
 
-        new seasonChart(d3, options, tooltipPartnership, margin)
+        new seasonChart(d3, options, margin)
     })
 
     

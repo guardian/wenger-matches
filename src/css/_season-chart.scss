@@ -1,6 +1,20 @@
+.seasons-container{
+    position: relative;
+    width: 100%;
+    margin-bottom: 100%;
+}
+
+.season-container{
+    position: relative;
+    width: 320px;
+    float: left;
+}
+
+
 .season-analysis {
     width:320px;
     overflow:hidden;
+    position: relative;
 
     .axis{
         @include fs-textSans(1);
@@ -49,8 +63,7 @@
 
 
 
-
-
+  
     
 
  .area-top {
@@ -64,17 +77,29 @@
         fill-opacity:0.9;
         z-index:99;
     } 
+.arse-highlight{
+    fill:red !important;
+    z-index:96;
+  }
 
+.non-arse-highlight{
+    fill:#FFCC00!important;
+    z-index:97;
+}
 .svg-overlay {
   fill: none;
   pointer-events: all;
   cursor:pointer;
 }  
 
+.focus{
+  display:none;
+}
 
 .focus circle {
-  fill:  #FFF;
-  stroke: #EFEFEF;
+  fill:  #333;
+  stroke: #444;
+
 }
 
 .focus line {
