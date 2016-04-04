@@ -1,19 +1,20 @@
 export default function Tooltip(options) {
 
+  console.log(options)
 
-  var w=options.width || 300,
-    h=options.height || 180;
+  var w=options.width,
+    h=options.height;
 
   var positioner = d3.select(options.positioner)  
 
-  var tooltip=d3.select(options.container)//'#mapHolder'
+  var tooltip=d3.select(options.container) //'#mapHolder'
           .append("div")
             .attr("class","tooltip arrow_box clearfix")
             .style("height", function(){
-              return (options.height)+"px";
+              return h+"px";
             })
             .style("width",function(){
-              return (options.width)+"px";
+              return w+"px";
             })
 
   var tooltipTitle=tooltip.append("h1")
@@ -66,11 +67,14 @@ export default function Tooltip(options) {
       .text(function(d){ "ciao ciao ciao"  })      
 
     tooltip.style({
-      left:(x + 30)+"px",  //+16+options.margins.left
-      top:(y + (h/2) + 24)+"px" //+options.margins.top-60
+      left:(x)+"px",  //+16+options.margins.left
+      top:(0)+"px" //+options.margins.top-60
     })
-    .classed("visible",true)
 
+    tooltip.classed("visible",true)
+
+console.log("work on this line tomorrow to position arrow pointer - also final var undefined when dragging out to right");
+    //tooltip.arrow_box.style({left:"60px"})
   };
 
 

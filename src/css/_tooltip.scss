@@ -2,7 +2,7 @@
     position: absolute;
     top:0;
     left:0;
-    width:140px;
+    //width:60px;
     background-color: rgba(255,255,255,0.9);
 
     padding:5px;
@@ -44,8 +44,7 @@
     }
 
     h1 {
-        @include fs-header(1);
-        font-size: 14px;
+        @include fs-textSans(1);
         margin:0;
         margin-bottom:0.5em;
         
@@ -92,36 +91,58 @@
 }
 
 .tooltip.visible {
+
     display: block;
+
 }
 
 .arrow_box {
     //position: relative;
     background: #fff;
     border: 1px solid #aaa;
+
+
 }
 
 .arrow_box:after, .arrow_box:before {
-    right: 100%;
-    top: 30px;
+    
+    top: -webkit-calc(100% + 1px);
+    top:    -moz-calc(100% + 1px);
+    top:         calc(100% + 1px);
+
+    //left:0%;
+
+    left: -webkit-calc(0% + 6px);
+    left:    -moz-calc(0% + 6px);
+    left:         calc(0% + 6px);
+
     border: solid transparent;
     content: " ";
     height: 0;
     width: 0;
     position: absolute;
     pointer-events: none;
+
 }
 
 .arrow_box:after {
     border-color: rgba(255, 255, 255, 0);
-    border-right-color: #fff;
-    border-width: 10px;
-    margin-top: -10px;
+    border-top-color: #fff;
+    border-width: 6px;
+    margin-top: -1px;
 }
 
 .arrow_box:before {
     border-color: rgba(170, 170, 170, 0);
-    border-right-color: #777;
-    border-width: 11px;
-    margin-top: -11px;
+    border-top-color:  rgba(170, 170, 170, 1);
+    border-width: 6px;
+    margin-top: 0px;
+
+}
+.hide-arrow{
+    display:none !important;
+}
+
+.show-arrow{
+    display:block !important;
 }

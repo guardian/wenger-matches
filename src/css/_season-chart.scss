@@ -69,42 +69,48 @@
  .area-top {
         fill:$c-for;
         fill-opacity:0.9;
+        transition: fill .4s ease;
         z-index:98;
     }
 
  .area-bottom {
         fill:$c-against;
         fill-opacity:0.9;
+        transition: fill .4s ease;
         z-index:99;
     } 
 .arse-highlight{
     fill:red !important;
+    transition: fill .4s ease;
     z-index:96;
   }
 
 .non-arse-highlight{
     fill:#FFCC00!important;
+    transition: fill .4s ease;
     z-index:97;
 }
 .svg-overlay {
-  fill: none;
+  fill: rgba(100,10,30,0.3);
   pointer-events: all;
   cursor:pointer;
 }  
 
 .focus{
   display:none;
+    pointer-events: none;
 }
 
 .focus circle {
   fill:  #333;
   stroke: #444;
 
+
 }
 
 .focus line {
   stroke-width: 1;
-  stroke: $c-accent;
+  stroke: rgb(170,170,170);
   shape-rendering: crispEdges;
 }
 

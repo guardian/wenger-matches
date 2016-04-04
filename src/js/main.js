@@ -83,7 +83,7 @@ function addSeasonCharts(allSeasons){
 
     _.forEach(allSeasons, function(season,i){
         var options = {};
-        options.container = ".seasons-container";
+        options.container = "#seasonsContainer";
         options.seasonContainer = "seasonDiv_"+i;
         options.maxValGoals = maxValGoals;
         options.maxValMatches = maxValMatches;
