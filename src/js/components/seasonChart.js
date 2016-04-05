@@ -13,7 +13,7 @@ import Tooltip from './Tooltip'
 
 		export default function seasonChart(d3, options, margin) {
 
-				var width = 300 - margin.left - margin.right, height;
+				var width = 300, height;
 				
 				var data = options.arr;				
 
@@ -22,10 +22,11 @@ import Tooltip from './Tooltip'
 				var draggerW = 30;
 			    var toolW = 120;
 			    var toolH = 36;
+			    var arrowOffset = 6;
 
 				width = (options.maxValMatches * widthUnit);
 
-				height = ((options.maxValGoals*2)*widthUnit)
+				height = 240;//((options.maxValGoals*2)*widthUnit)
 
 				var container=d3.select(options.container)
 					.append("div")
@@ -50,12 +51,20 @@ import Tooltip from './Tooltip'
 				    .orient("left")
 				    .tickSize(width);
 
-				var areaTop = d3.svg.area().interpolate("step")
+				var lineTop = d3.svg.line().interpolate("basis")
+				    .x(function(d,i) { return x(i); })
+				    .y(function(d) { return y(d.For); });
+
+				var lineBottom = d3.svg.line().interpolate("basis")
+				    .x(function(d,i) { return x(i); })
+				    .y(function(d) { return y(d.Against *); });        
+
+				var areaTop = d3.svg.area().interpolate("basis")
 				    .x(function(d,i) { return x(i); })
 				    .y0(height/2)
 				    .y1(function(d) { return y(d.For); });
 
-				var areaBottom = d3.svg.area().interpolate("step")
+				var areaBottom = d3.svg.area().interpolate("basis")
 				    .x(function(d,i) { return x(i); })
 				    .y0(height/2)
 				    .y1(function(d) { return y(d.Against * -1); });    
@@ -86,13 +95,23 @@ import Tooltip from './Tooltip'
 
 					svg.append("path")
 					      .datum(options.arr)
+					      .attr("class", "area-line")
+					      .attr("d", lineTop); 	
+
+					svg.append("path")
+					      .datum(options.arr)
 					      .attr("class", "area-top")
 					      .attr("d", areaTop );
+
+					svg.append("path")
+					      .datum(options.arr)
+					      .attr("class", "area-line")
+					      .attr("d", lineBottom); 	    
 
 				    svg.append("path")
 					      .datum(options.arr)
 					      .attr("class", "area-bottom")
-					      .attr("d", areaBottom );   
+					      .attr("d", areaBottom ); 
 
 				    svg.append("rect")
 				    	.attr("class", "svg-overlay")
@@ -156,7 +175,7 @@ import Tooltip from './Tooltip'
 			        var tempEl = d3.select(this);
 
 					if (xPos > minDrag && xPos < maxDrag) { 
-						toolPos = xPos - (draggerW/2);
+						toolPos = xPos - arrowOffset;
 						d3.select(this).attr("x", xPos) ;
 						focus.select("g").attr("transform", "translate( "+ d +" , 0 )");
 				        focus.select("circle").attr("transform", "translate( "+ (xPos+(draggerW/2)) +", "+ height/2 +" )");

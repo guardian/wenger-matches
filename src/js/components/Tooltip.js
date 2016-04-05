@@ -17,9 +17,9 @@ export default function Tooltip(options) {
               return w+"px";
             })
 
-  var tooltipTitle=tooltip.append("h1")
-        .attr("id","titleTxt")
-        .attr("class","tooltip-title");   
+  // var tooltipTitle=tooltip.append("h1")
+  //       .attr("id","titleTxt")
+  //       .attr("class","tooltip-title");   
   
 
   var indicator=tooltip.selectAll("div.indicator")
@@ -54,7 +54,7 @@ export default function Tooltip(options) {
    
     if (data.Where == "A"){ htmlStr = data.Opponent+" "+data.Against+" – "+data.For+" Arsenal"}
 
-    tooltipTitle.text(function(d) {return data.Competition} )
+   // tooltipTitle.text(function(d) {return data.Competition} )
 
     indicator.select("#govLeader")
       .attr("class","value-emphasis")

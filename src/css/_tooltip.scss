@@ -104,7 +104,7 @@
 
 }
 
-.arrow_box:after, .arrow_box:before {
+.arrow_box-after, .arrow_box-before {
     
     top: -webkit-calc(100% + 1px);
     top:    -moz-calc(100% + 1px);
@@ -125,14 +125,14 @@
 
 }
 
-.arrow_box:after {
+.arrow_box-after {
     border-color: rgba(255, 255, 255, 0);
     border-top-color: #fff;
     border-width: 6px;
     margin-top: -1px;
 }
 
-.arrow_box:before {
+.arrow_box-before {
     border-color: rgba(170, 170, 170, 0);
     border-top-color:  rgba(170, 170, 170, 1);
     border-width: 6px;
